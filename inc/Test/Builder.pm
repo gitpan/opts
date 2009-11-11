@@ -4,6 +4,7 @@ package Test::Builder;
 use 5.006;
 use strict;
 use warnings;
+use Encode;
 
 our $VERSION = '0.94';
 $VERSION = eval $VERSION;    ## no critic (BuiltinFunctions::ProhibitStringyEval)
@@ -69,7 +70,7 @@ BEGIN {
     }
 }
 
-#line 117
+#line 118
 
 our $Test = Test::Builder->new;
 
@@ -79,7 +80,7 @@ sub new {
     return $Test;
 }
 
-#line 139
+#line 140
 
 sub create {
     my $class = shift;
@@ -90,7 +91,7 @@ sub create {
     return $self;
 }
 
-#line 168
+#line 169
 
 sub child {
     my( $self, $name ) = @_;
@@ -117,7 +118,7 @@ sub child {
 }
 
 
-#line 201
+#line 202
 
 sub subtest {
     my $self = shift;
@@ -149,7 +150,7 @@ sub subtest {
 }
 
 
-#line 250
+#line 251
 
 sub finalize {
     my $self = shift;
@@ -190,11 +191,11 @@ sub _indent      {
     return $self->{Indent};
 }
 
-#line 300
+#line 301
 
 sub parent { shift->{Parent} }
 
-#line 312
+#line 313
 
 sub name { shift->{Name} }
 
@@ -210,7 +211,7 @@ FAIL
     }
 }
 
-#line 336
+#line 337
 
 our $Level;
 
@@ -256,7 +257,7 @@ sub reset {    ## no critic (Subroutines::ProhibitBuiltinHomonyms)
     return;
 }
 
-#line 414
+#line 415
 
 my %plan_cmds = (
     no_plan     => \&no_plan,
@@ -304,7 +305,7 @@ sub _plan_tests {
 }
 
 
-#line 470
+#line 471
 
 sub expected_tests {
     my $self = shift;
@@ -322,7 +323,7 @@ sub expected_tests {
     return $self->{Expected_Tests};
 }
 
-#line 494
+#line 495
 
 sub no_plan {
     my($self, $arg) = @_;
@@ -336,7 +337,7 @@ sub no_plan {
 }
 
 
-#line 528
+#line 529
 
 sub _output_plan {
     my($self, $max, $directive, $reason) = @_;
@@ -354,7 +355,7 @@ sub _output_plan {
     return;
 }
 
-#line 579
+#line 580
 
 sub done_testing {
     my($self, $num_tests) = @_;
@@ -397,7 +398,7 @@ sub done_testing {
 }
 
 
-#line 630
+#line 631
 
 sub has_plan {
     my $self = shift;
@@ -407,7 +408,7 @@ sub has_plan {
     return(undef);
 }
 
-#line 647
+#line 648
 
 sub skip_all {
     my( $self, $reason ) = @_;
@@ -421,7 +422,7 @@ sub skip_all {
     exit(0);
 }
 
-#line 672
+#line 673
 
 sub exported_to {
     my( $self, $pack ) = @_;
@@ -432,7 +433,7 @@ sub exported_to {
     return $self->{Exported_To};
 }
 
-#line 702
+#line 703
 
 sub ok {
     my( $self, $test, $name ) = @_;
@@ -592,7 +593,7 @@ sub _is_dualvar {
     return $numval != 0 and $numval ne $val ? 1 : 0;
 }
 
-#line 876
+#line 877
 
 sub is_eq {
     my( $self, $got, $expect, $name ) = @_;
@@ -675,7 +676,7 @@ sub _isnt_diag {
 DIAGNOSTIC
 }
 
-#line 973
+#line 974
 
 sub isnt_eq {
     my( $self, $got, $dont_expect, $name ) = @_;
@@ -709,7 +710,7 @@ sub isnt_num {
     return $self->cmp_ok( $got, '!=', $dont_expect, $name );
 }
 
-#line 1022
+#line 1023
 
 sub like {
     my( $self, $this, $regex, $name ) = @_;
@@ -725,7 +726,7 @@ sub unlike {
     return $self->_regex_ok( $this, $regex, '!~', $name );
 }
 
-#line 1046
+#line 1047
 
 my %numeric_cmps = map { ( $_, 1 ) } ( "<", "<=", ">", ">=", "==", "!=", "<=>" );
 
@@ -805,7 +806,7 @@ sub _caller_context {
     return $code;
 }
 
-#line 1145
+#line 1146
 
 sub BAIL_OUT {
     my( $self, $reason ) = @_;
@@ -815,14 +816,14 @@ sub BAIL_OUT {
     exit 255;
 }
 
-#line 1158
+#line 1159
 
 {
     no warnings 'once';
     *BAILOUT = \&BAIL_OUT;
 }
 
-#line 1172
+#line 1173
 
 sub skip {
     my( $self, $why ) = @_;
@@ -853,7 +854,7 @@ sub skip {
     return 1;
 }
 
-#line 1213
+#line 1214
 
 sub todo_skip {
     my( $self, $why ) = @_;
@@ -881,7 +882,7 @@ sub todo_skip {
     return 1;
 }
 
-#line 1293
+#line 1294
 
 sub maybe_regex {
     my( $self, $regex ) = @_;
@@ -961,7 +962,7 @@ DIAGNOSTIC
 # I'm not ready to publish this.  It doesn't deal with array return
 # values from the code or context.
 
-#line 1389
+#line 1390
 
 sub _try {
     my( $self, $code, %opts ) = @_;
@@ -981,7 +982,7 @@ sub _try {
     return wantarray ? ( $return, $error ) : $return;
 }
 
-#line 1418
+#line 1419
 
 sub is_fh {
     my $self     = shift;
@@ -995,7 +996,7 @@ sub is_fh {
            eval { tied($maybe_fh)->can('TIEHANDLE') };
 }
 
-#line 1461
+#line 1462
 
 sub level {
     my( $self, $level ) = @_;
@@ -1006,7 +1007,7 @@ sub level {
     return $Level;
 }
 
-#line 1493
+#line 1494
 
 sub use_numbers {
     my( $self, $use_nums ) = @_;
@@ -1017,7 +1018,7 @@ sub use_numbers {
     return $self->{Use_Nums};
 }
 
-#line 1526
+#line 1527
 
 foreach my $attribute (qw(No_Header No_Ending No_Diag)) {
     my $method = lc $attribute;
@@ -1035,7 +1036,7 @@ foreach my $attribute (qw(No_Header No_Ending No_Diag)) {
     *{ __PACKAGE__ . '::' . $method } = $code;
 }
 
-#line 1579
+#line 1580
 
 sub diag {
     my $self = shift;
@@ -1043,7 +1044,7 @@ sub diag {
     $self->_print_comment( $self->_diag_fh, @_ );
 }
 
-#line 1594
+#line 1595
 
 sub note {
     my $self = shift;
@@ -1080,7 +1081,7 @@ sub _print_comment {
     return 0;
 }
 
-#line 1644
+#line 1645
 
 sub explain {
     my $self = shift;
@@ -1099,7 +1100,7 @@ sub explain {
     } @_;
 }
 
-#line 1673
+#line 1674
 
 sub _print {
     my $self = shift;
@@ -1124,10 +1125,14 @@ sub _print_to_fh {
     # Stick a newline on the end if it needs it.
     $msg .= "\n" unless $msg =~ /\n\z/;
 
-    return print $fh $self->_indent, $msg;
+    if ( Encode::is_utf8($msg) ) {
+        return print $fh $self->_indent, Encode::encode_utf8($msg);
+    } else {
+        return print $fh $self->_indent, $msg;
+    }
 }
 
-#line 1732
+#line 1737
 
 sub output {
     my( $self, $fh ) = @_;
@@ -1246,7 +1251,7 @@ sub _copy_io_layers {
     return;
 }
 
-#line 1857
+#line 1862
 
 sub reset_outputs {
     my $self = shift;
@@ -1258,7 +1263,7 @@ sub reset_outputs {
     return;
 }
 
-#line 1883
+#line 1888
 
 sub _message_at_caller {
     my $self = shift;
@@ -1279,7 +1284,7 @@ sub croak {
 }
 
 
-#line 1923
+#line 1928
 
 sub current_test {
     my( $self, $num ) = @_;
@@ -1312,7 +1317,7 @@ sub current_test {
     return $self->{Curr_Test};
 }
 
-#line 1971
+#line 1976
 
 sub is_passing {
     my $self = shift;
@@ -1325,7 +1330,7 @@ sub is_passing {
 }
 
 
-#line 1993
+#line 1998
 
 sub summary {
     my($self) = shift;
@@ -1333,14 +1338,14 @@ sub summary {
     return map { $_->{'ok'} } @{ $self->{Test_Results} };
 }
 
-#line 2048
+#line 2053
 
 sub details {
     my $self = shift;
     return @{ $self->{Test_Results} };
 }
 
-#line 2077
+#line 2082
 
 sub todo {
     my( $self, $pack ) = @_;
@@ -1354,7 +1359,7 @@ sub todo {
     return '';
 }
 
-#line 2099
+#line 2104
 
 sub find_TODO {
     my( $self, $pack ) = @_;
@@ -1366,7 +1371,7 @@ sub find_TODO {
     return ${ $pack . '::TODO' };
 }
 
-#line 2117
+#line 2122
 
 sub in_todo {
     my $self = shift;
@@ -1375,7 +1380,7 @@ sub in_todo {
     return( defined $self->{Todo} || $self->find_TODO ) ? 1 : 0;
 }
 
-#line 2167
+#line 2172
 
 sub todo_start {
     my $self = shift;
@@ -1390,7 +1395,7 @@ sub todo_start {
     return;
 }
 
-#line 2189
+#line 2194
 
 sub todo_end {
     my $self = shift;
@@ -1411,7 +1416,7 @@ sub todo_end {
     return;
 }
 
-#line 2222
+#line 2227
 
 sub caller {    ## no critic (Subroutines::ProhibitBuiltinHomonyms)
     my( $self, $height ) = @_;
@@ -1426,9 +1431,9 @@ sub caller {    ## no critic (Subroutines::ProhibitBuiltinHomonyms)
     return wantarray ? @caller : $caller[0];
 }
 
-#line 2239
+#line 2244
 
-#line 2253
+#line 2258
 
 #'#
 sub _sanity_check {
@@ -1441,7 +1446,7 @@ sub _sanity_check {
     return;
 }
 
-#line 2274
+#line 2279
 
 sub _whoa {
     my( $self, $check, $desc ) = @_;
@@ -1456,7 +1461,7 @@ WHOA
     return;
 }
 
-#line 2298
+#line 2303
 
 sub _my_exit {
     $? = $_[0];    ## no critic (Variables::RequireLocalizedPunctuationVars)
@@ -1464,7 +1469,7 @@ sub _my_exit {
     return 1;
 }
 
-#line 2310
+#line 2315
 
 sub _ending {
     my $self = shift;
@@ -1583,7 +1588,7 @@ END {
     $Test->_ending if defined $Test;
 }
 
-#line 2498
+#line 2503
 
 1;
 

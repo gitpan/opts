@@ -7,6 +7,7 @@ inc/Module/Install/Fetch.pm
 inc/Module/Install/Include.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
+inc/Module/Install/Repository.pm
 inc/Module/Install/TestBase.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
@@ -29,6 +30,8 @@ t/010_simple/04_default.t
 t/010_simple/05_methods.t
 t/010_simple/06_required_tc.t
 t/010_simple/07_create_tc.t
+t/010_simple/08_alias.t
+t/020_coerce/01_basic.t
 xt/01_podspell.t
 xt/02_perlcritic.t
 xt/03_pod.t
