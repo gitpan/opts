@@ -1,10 +1,11 @@
 package opts;
 use strict;
 use warnings;
-our $VERSION = '0.022';
+our $VERSION = '0.03';
 use Exporter 'import';
 use PadWalker qw/var_name/;
 use Getopt::Long;
+use Carp ();
 
 our @EXPORT = qw/opts/;
 
@@ -19,8 +20,13 @@ our $TYPE_CONSTRAINT = {
 
 my %is_invocant = map{ $_ => undef } qw($self $class);
 
-my $coerce_type_map = {};
-my $coerce_generater = {};
+my $coerce_type_map = {
+    Multiple => 'ArrayRef',
+};
+
+my $coerce_generater = {
+    Multiple => sub { [ split(qr{,}, join(q{,}, @{ $_[0] })) ] },
+};
 
 sub opts {
     {
@@ -37,6 +43,9 @@ sub opts {
         # XXX: should we provide ways to check the type of invocant?
     }
 
+    # track our coderef defaults
+    my %default_subs;
+
     my @options;
     my %requireds;
     my %generaters;
@@ -49,9 +58,32 @@ sub opts {
 
         my $rule = _compile_rule($_[$i+1]);
 
-        if (exists $rule->{default}) {
-            $_[$i] = $rule->{default};
+        if ($name =~ /_/) {
+
+            # Name has underscores in it, which is annoying for command line
+            # arguments.  Swap them and create / add to alias.
+            (my $newname = $name) =~ s/_/-/g;
+
+            $rule->{alias}
+                = $rule->{alias}
+                ? $name . q{|} . $rule->{alias}
+                : $name
+                ;
+
+            $name = $newname;
         }
+
+        if (exists $rule->{default}) {
+
+            if (ref $rule->{default} && ref $rule->{default} eq 'CODE') {
+                $default_subs{$i} = $rule->{default};
+                $_[$i] = undef;
+            }
+            else {
+                $_[$i] = $rule->{default};
+            }
+        }
+
         if (exists $rule->{required}) {
             $requireds{$name} = $i;
         }
@@ -68,6 +100,9 @@ sub opts {
         my $err;
         local $SIG{__WARN__} = sub { $err = shift };
         GetOptions(@options) or Carp::croak($err);
+
+        do { $_[$_] = $default_subs{$_}->() unless defined $_[$_] }
+            for keys %default_subs;
 
         while ( my ($name, $idx) = each %requireds ) {
             unless (defined($_[$idx])) {
@@ -180,10 +215,40 @@ opts is DSL for command line option.
     define option value is required.
 
   default
-    define options default value.
+    define options default value. If passed a coderef, it
+    will be executed if no value is provided on the command line.
 
   alias
     define option param's alias.
+
+=head1 TYPES
+
+=over 4
+
+=item B<Str>
+
+=item B<Int>
+
+=item B<Num>
+
+=item B<Bool>
+
+=item B<ArrayRef>
+
+=item B<HashRef>
+
+=item B<Multiple>
+
+This subtype is based off of ArrayRef.  It will attempt to split any values
+passed on the command line on a comma: that is,
+
+    [ "one", "two,three" ]
+
+will become
+
+    [ "one", "two", "three" ].
+
+=back
 
 =head1 opts::coerce
 
@@ -199,6 +264,10 @@ opts is DSL for command line option.
 =head1 AUTHOR
 
 Kan Fushihara E<lt>kan.fushihara at gmail.comE<gt>
+
+=head1 THANKS TO
+
+Chris Weyl L<http://search.cpan.org/~rsrchboy/>
 
 =head1 SEE ALSO
 

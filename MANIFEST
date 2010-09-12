@@ -32,7 +32,9 @@ t/010_simple/05_methods.t
 t/010_simple/06_required_tc.t
 t/010_simple/07_create_tc.t
 t/010_simple/08_alias.t
+t/010_simple/09_names_with_underscore.t
 t/020_coerce/01_basic.t
+t/030_builtin_coercions/01_multiple.t
 xt/01_podspell.t
 xt/02_perlcritic.t
 xt/03_pod.t
