@@ -8,14 +8,8 @@ inc/Module/Install/Include.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Repository.pm
-inc/Module/Install/TestBase.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
-inc/Spiffy.pm
-inc/Test/Base.pm
-inc/Test/Base/Filter.pm
-inc/Test/Builder.pm
-inc/Test/Builder/Module.pm
 inc/Test/Exception.pm
 inc/Test/More.pm
 lib/opts.pm
@@ -33,6 +27,7 @@ t/010_simple/06_required_tc.t
 t/010_simple/07_create_tc.t
 t/010_simple/08_alias.t
 t/010_simple/09_names_with_underscore.t
+t/010_simple/10_help.t
 t/020_coerce/01_basic.t
 t/030_builtin_coercions/01_multiple.t
 xt/01_podspell.t
