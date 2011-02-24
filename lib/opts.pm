@@ -1,7 +1,7 @@
 package opts;
 use strict;
 use warnings;
-our $VERSION = '0.042';
+our $VERSION = '0.05';
 use Exporter 'import';
 use PadWalker qw/var_name/;
 use Getopt::Long;
@@ -90,12 +90,12 @@ sub opts {
             $requireds{$name} = $i;
         }
 
-        if (my $comment = $rule->{comment}) {
-            my @names = (substr($name,0,1), $name);
-            push @names, $rule->{alias} if $rule->{alias};
-            my $optname = join(', ', map { (length($_) > 1 ? '--' : '-').$_ } @names);
-            push @option_help, [ $optname, ucfirst($comment) ];
-        }
+        
+        my $comment = $rule->{comment} || "";
+        my @names = (substr($name,0,1), $name);
+        push @names, $rule->{alias} if $rule->{alias};
+        my $optname = join(', ', map { (length($_) > 1 ? '--' : '-').$_ } @names);
+        push @option_help, [ $optname, ucfirst($comment) ];
 
         if (my $gen = $coerce_generater->{$rule->{isa}}) {
             $generaters{$name} = { idx => $i, gen => $gen };
@@ -203,7 +203,7 @@ opts - simple command line option parser
   ./script.pl -f=4    # $foo => 4
 
   # in script.pl
-  opts my $foo => { 'Int', required => 1 },
+  opts my $foo => { isa => 'Int', required => 1, comment => 'this is output to --help' },
        my $bar => 'Int';
   
   ./script.pl --foo=3 --bar=4 # $foo => 3, $bar => 4
@@ -244,6 +244,10 @@ opts is DSL for command line option.
 
   alias
     define option param's alias.
+
+
+  comment
+    this comment is used to generate help. help can show --help
 
 =head1 TYPES
 
@@ -295,7 +299,7 @@ Chris Weyl L<http://search.cpan.org/~rsrchboy/>
 
 =head1 SEE ALSO
 
-L<http://github.com/tokuhirom/p5-args>, L<Getopt::Long>
+L<Smart::Args>, L<Getopt::Long>
 
 =head1 LICENSE
 
