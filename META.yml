@@ -3,29 +3,48 @@ abstract: 'simple command line option parser'
 author:
   - 'Kan Fushihara <kan.fushihara at gmail.com>'
 build_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.36
   Test::Exception: 0
-  Test::More: 0
+  Test::Module::Used: 0
+  Test::Perl::Critic: 0
 configure_requires:
-  ExtUtils::MakeMaker: 6.42
-distribution_type: module
-generated_by: 'Module::Install version 0.91'
-license: perl
+  CPAN::Meta: 0
+  CPAN::Meta::Prereqs: 0
+  Module::Build: 0.38
+dynamic_config: 0
+generated_by: 'Minilla/v0.5.6, CPAN::Meta::Converter version 2.120921'
+license: unknown
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: opts
 no_index:
   directory:
-    - inc
     - t
     - xt
+    - inc
+    - share
+    - eg
+    - examples
+    - author
+provides:
+  opts:
+    file: lib/opts.pm
+    version: 0.06
 requires:
   Filter::Util::Call: 0
   Getopt::Long: 2.37
   PadWalker: 1.9
   Text::Table: 0
 resources:
-  license: http://dev.perl.org/licenses/
+  bugtracker: https://github.com/kan/p5-opts/issues
+  homepage: https://github.com/kan/p5-opts
   repository: git://github.com/kan/p5-opts.git
-version: 0.05
+version: 0.06
+x_contributors:
+  - 'Kan Fushihara <kan@kan-loox.(none)>'
+  - 'Kan Fushihara <kan@mobilefactory.jp>'
+  - 'Chris Weyl <cweyl@alumni.drew.edu>'
+  - 'Keiji, Yoshimi <walf443@gmail.com>'
+  - 'Kan Fushihara <kan@mfac.jp>'
+  - 'Kan Fushihara <kan.fushihara@gmail.com>'
