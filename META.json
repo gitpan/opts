@@ -1,11 +1,13 @@
 {
-   "abstract" : "simple command line option parser",
+   "abstract" : "(DEPRECATED) simple command line option parser",
    "author" : [
       "Kan Fushihara <kan.fushihara at gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.5.6",
-   "license" : "unknown",
+   "generated_by" : "Minilla/v0.11.0",
+   "license" : [
+      "unknown"
+   ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : "2"
@@ -19,7 +21,8 @@
          "share",
          "eg",
          "examples",
-         "author"
+         "author",
+         "builder"
       ]
    },
    "prereqs" : {
@@ -58,7 +61,7 @@
    "provides" : {
       "opts" : {
          "file" : "lib/opts.pm",
-         "version" : "0.06"
+         "version" : "0.07"
       }
    },
    "release_status" : "stable",
@@ -72,13 +75,14 @@
          "web" : "https://github.com/kan/p5-opts"
       }
    },
-   "version" : "0.06",
+   "version" : "0.07",
    "x_contributors" : [
       "Kan Fushihara <kan@kan-loox.(none)>",
       "Kan Fushihara <kan@mobilefactory.jp>",
       "Chris Weyl <cweyl@alumni.drew.edu>",
       "Keiji, Yoshimi <walf443@gmail.com>",
       "Kan Fushihara <kan@mfac.jp>",
-      "Kan Fushihara <kan.fushihara@gmail.com>"
+      "Neil Bowers <neil@bowers.com>",
+      "kan fushihara <kan.fushihara@gmail.com>"
    ]
 }
